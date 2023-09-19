@@ -48,7 +48,7 @@ class ArticleService
         return $this->articleRepository->update($array, $id);
     }
 
-    public function destroyById(int $id): bool
+    public function destoryById(int $id): bool
     {
         if (!$article = $this->articleRepository->findById($id)) {
             throw new NotFoundException('Not found article!');

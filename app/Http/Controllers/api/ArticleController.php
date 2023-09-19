@@ -43,6 +43,6 @@ class ArticleController extends Controller
 
     public function destroy(int $id): bool
     {
-        return $this->articleService->destroyById($id);
+        return $this->articleService->destoryById($id);
     }
 }
