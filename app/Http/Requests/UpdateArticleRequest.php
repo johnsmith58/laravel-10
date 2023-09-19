@@ -20,4 +20,9 @@ class UpdateArticleRequest extends FormRequest
             'order_no' => [ 'required', 'integer' ]
         ];
     }
+
+    public function getValidatedArticle(): Article
+    {
+        return new Article($this->validated());
+    }
 }

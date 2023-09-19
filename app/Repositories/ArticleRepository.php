@@ -39,15 +39,9 @@ class ArticleRepository extends Repository implements ArticleRepositoryInterface
         return $this->model->find($id);
     }
 
-    public function update(array $data, int $id): ?Model
+    public function update(Model $model): ?Model
     {
-        if (!$article = $this->model->find($id)) {
-            throw new NotFoundException('Not found article!');
-        }
-
-        $article->update($data);
-
-        return $article;
+        return tap(($model), fn () => $model->update());
     }
 
     public function destory(Model $model): bool

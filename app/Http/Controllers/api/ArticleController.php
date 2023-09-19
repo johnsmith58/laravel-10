@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers\api;
 
-use App\Models\Article;
-use Illuminate\Http\Request;
 use App\Services\ArticleService;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ArticleResource;
 use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
-use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ArticleController extends Controller
@@ -38,7 +35,7 @@ class ArticleController extends Controller
 
     public function update(UpdateArticleRequest $request, int $id): ?JsonResource
     {
-        return new ArticleResource($this->articleService->updateArticle($request->validated(), $id));
+        return new ArticleResource($this->articleService->updateArticle($request->getValidatedArticle(), $id));
     }
 
     public function destroy(int $id): bool

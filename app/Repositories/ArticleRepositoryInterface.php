@@ -15,7 +15,7 @@ interface ArticleRepositoryInterface
 
     public function findById(int $id): ?Model;
 
-    public function update(array $data, int $id): ?Model;
+    public function update(Model $model): ?Model;
 
     public function destory(Model $model): bool;
 }

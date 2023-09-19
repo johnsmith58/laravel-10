@@ -39,13 +39,13 @@ class ArticleService
         return $article;
     }
 
-    public function updateArticle(array $array, int $id): ?Model
+    public function updateArticle(Model $model, int $id): ?Model
     {
-        if (!$this->articleRepository->findById($id)) {
+        if (!$article = $this->articleRepository->findById($id)) {
             throw new NotFoundException('Not found article!');
         }
 
-        return $this->articleRepository->update($array, $id);
+        return $this->articleRepository->update($article->fill($model->toArray()));
     }
 
     public function destoryById(int $id): bool

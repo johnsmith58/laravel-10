@@ -108,7 +108,7 @@ class ArticleServiceTest extends TestCase
 
         $this->ensureUpdateCall();
 
-        $result = $this->articleService->updateArticle($this->articleArrayData(), 1);
+        $result = $this->articleService->updateArticle(new Article(), 1);
 
         $this->assertInstanceOf(Article::class, $result);
     }
@@ -119,24 +119,12 @@ class ArticleServiceTest extends TestCase
 
         $this->expectException(NotFoundException::class);
 
-        $this->articleService->updateArticle($this->articleArrayData(), 2);
+        $this->articleService->updateArticle(new Article(), 2);
     }
 
     protected function ensureUpdateCall(): void
     {
         $this->articleRepository->shouldReceive('update')->once()->andReturn(new Article());
-    }
-
-    protected function articleArrayData(): array
-    {
-        return [
-            "title" => "News Poster",
-            "sub_title" => "The wave is coming on December 15th",
-            "content" => "Recusandae quas esse sint distinctio facilis quo.",
-            "img_src" => "https://via.placeholder.com/640x480.png/0011aa?text=maxime",
-            "author_name" => "Cassie Ryan III",
-            "order_no" => 71
-        ];
     }
 
     public function testCanDestoryById(): void

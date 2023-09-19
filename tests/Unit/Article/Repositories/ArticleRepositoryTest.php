@@ -64,4 +64,47 @@ class ArticleRepositoryTest extends TestCase
     {
         $this->articleModelMock->shouldReceive('save')->once();
     }
+
+    public function testCanFindById(): void
+    {
+        $this->ensureToCallFindArticleModel(true);
+
+        $result = $this->articleRepository->findById(1);
+
+        $this->assertInstanceOf(Article::class, $result);
+    }
+
+    protected function ensureToCallFindArticleModel(bool $shouldFound): void
+    {
+        $this->articleModelMock->shouldReceive('find')->once()->andReturn($shouldFound ? new Article() : null);
+    }
+
+    public function testCanUpdate(): void
+    {
+        $this->ensureToCallUpdateArticleModel();
+
+        $result = $this->articleRepository->update($this->articleModelMock, 1);
+
+        $this->assertInstanceOf(Article::class, $result);
+    }
+
+    public function ensureToCallUpdateArticleModel(): void
+    {
+        $this->articleModelMock->shouldReceive('update')
+            ->once()->andReturn(new Article());
+    }
+
+    public function testDestory(): void
+    {
+        $this->ensureToCallDeleteArticleModel();
+
+        $result = $this->articleRepository->destory($this->articleModelMock);
+
+        $this->assertTrue($result);
+    }
+
+    protected function ensureToCallDeleteArticleModel(): void
+    {
+        $this->articleModelMock->shouldReceive('delete')->once()->andReturn(true);
+    }
 }
