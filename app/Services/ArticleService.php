@@ -6,12 +6,11 @@ namespace App\Services;
 
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
-use App\Repositories\ArticleRepositoryInterface;
-use App\Http\Exceptions\FailStoreArticleException;
+use App\Services\ArticleServiceInterface;
 use App\Http\Exceptions\NotFoundException;
-use Exception;
+use App\Repositories\ArticleRepositoryInterface;
 
-class ArticleService
+class ArticleService implements ArticleServiceInterface
 {
     private ArticleRepositoryInterface $articleRepository;
 

@@ -170,7 +170,10 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         App\Providers\BindArticleRepositoryServiceProvider::class,
-        App\Providers\BindUserRepositoryServiceProvider::class
+        App\Providers\BindUserRepositoryServiceProvider::class,
+
+        App\Providers\BindArticleServiceServiceProvider::class,
+        App\Providers\BindUserServiceServiceProvider::class
     ])->toArray(),
 
     /*

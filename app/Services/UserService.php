@@ -10,7 +10,7 @@ use App\Http\Exceptions\NotFoundException;
 use App\Repositories\UserRepositoryInterface;
 use App\Http\Exceptions\UnAuthenticationException;
 
-class UserService
+class UserService implements UserServiceInterface
 {
     private UserRepositoryInterface $userRepository;
 

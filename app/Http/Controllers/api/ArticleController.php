@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers\api;
 
-use App\Services\ArticleService;
+use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ArticleResource;
+use App\Services\ArticleServiceInterface;
 use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
-use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Http\Response;
 
 class ArticleController extends Controller
 {
-    private ArticleService $articleService;
+    private ArticleServiceInterface $articleService;
 
-    public function __construct(ArticleService $articleService)
+    public function __construct(ArticleServiceInterface $articleService)
     {
         $this->articleService = $articleService;
     }
