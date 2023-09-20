@@ -29,7 +29,7 @@ class ArticleRepository extends Repository implements ArticleRepositoryInterface
         try {
             $model->save();
         } catch (Exception $e) {
-            throw new DbErrorException($e->getMessage());
+            throw new DbErrorException($e->getMessage(), 500);
         }
         return $model;
     }

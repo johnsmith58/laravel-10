@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Exceptions;
 
-use Exception;
+use App\Http\Exceptions\BaseException;
 
-final class DbErrorException extends Exception
+final class DbErrorException extends BaseException
 {
 }

@@ -7,7 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\ArticleResource;
 use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
+use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Response;
 
 class ArticleController extends Controller
 {
@@ -38,8 +40,13 @@ class ArticleController extends Controller
         return new ArticleResource($this->articleService->updateArticle($request->getValidatedArticle(), $id));
     }
 
-    public function destroy(int $id): bool
+    public function destroy(int $id): Response
     {
-        return $this->articleService->destoryById($id);
+        if($this->articleService->destoryById($id))
+        {
+            return response(['message' => 'Article delete successfully!'], 200);
+        }
+
+        return response(['message' => 'Article delete unsuccessfully!'], 500);
     }
 }

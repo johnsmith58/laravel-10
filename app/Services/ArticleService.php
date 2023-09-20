@@ -33,7 +33,7 @@ class ArticleService
     public function showById(int $id): Model
     {
         if (!$article = $this->articleRepository->findById($id)) {
-            throw new NotFoundException('Not found article!');
+            throw new NotFoundException('Not found article!', 404);
         }
 
         return $article;
@@ -42,7 +42,7 @@ class ArticleService
     public function updateArticle(Model $model, int $id): ?Model
     {
         if (!$article = $this->articleRepository->findById($id)) {
-            throw new NotFoundException('Not found article!');
+            throw new NotFoundException('Not found article!', 404);
         }
 
         return $this->articleRepository->update($article->fill($model->toArray()));
@@ -51,7 +51,7 @@ class ArticleService
     public function destoryById(int $id): bool
     {
         if (!$article = $this->articleRepository->findById($id)) {
-            throw new NotFoundException('Not found article!');
+            throw new NotFoundException('Not found article!', 404);
         }
 
         return $this->articleRepository->destory($article);
