@@ -169,7 +169,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        App\Providers\BindArticleRepositoryServiceProvider::class
+        App\Providers\BindArticleRepositoryServiceProvider::class,
+        App\Providers\BindUserRepositoryServiceProvider::class
     ])->toArray(),
 
     /*

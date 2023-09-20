@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\api\ArticleController;
+use App\Http\Controllers\api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,3 +21,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('articles', ArticleController::class);
+
+
+Route::controller(UserController::class)->group(function() {
+    Route::post('users/register', 'register');
+    Route::post('users/login', 'login');
+});
