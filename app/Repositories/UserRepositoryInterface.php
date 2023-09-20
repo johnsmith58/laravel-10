@@ -10,7 +10,5 @@ interface UserRepositoryInterface
 {
     public function register($model): Model;
 
-    public function login($data): Model;
-
     public function findByEmail($email): ?Model;
 }

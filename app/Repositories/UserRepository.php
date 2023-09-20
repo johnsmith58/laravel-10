@@ -30,11 +30,6 @@ class UserRepository extends Repository implements UserRepositoryInterface
         return $model;
     }
 
-    public function login($data): Model
-    {
-        return User::find($data);
-    }
-
     public function findByEmail($email): ?Model
     {
         return $this->model->where('email', $email)->first();

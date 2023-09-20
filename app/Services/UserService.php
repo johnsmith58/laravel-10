@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Services\HashService;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Exceptions\NotFoundException;
@@ -13,18 +14,21 @@ use App\Http\Exceptions\UnAuthenticationException;
 class UserService implements UserServiceInterface
 {
     private UserRepositoryInterface $userRepository;
+    private HashService $hashService;
 
-    public function __construct(UserRepositoryInterface $userRepository)
+    public function __construct(UserRepositoryInterface $userRepository, HashService $hashService)
     {
         $this->userRepository = $userRepository;
+        $this->hashService = $hashService;
     }
+
 
     public function register(Model $model): Model
     {
         $user = $this->userRepository->register($model);
 
         //add User token with sanctum
-        $user['token'] = $this->generateToken($user);
+        $user->token = $this->generateToken($user);
 
         return $user;
     }
@@ -40,18 +44,13 @@ class UserService implements UserServiceInterface
             throw new NotFoundException('User not found');
         }
 
-        if (!$this->hashPasswordCheck($user, $data['password'])) {
+        if (!$this->hashService->hashPasswordCheck($user, $data['password'])) {
             throw new UnAuthenticationException('User crendetial not correct!', 401);
         }
 
-        $user['token'] = $this->generateToken($user);
+        $user->token = $this->generateToken($user);
 
         return $user;
-    }
-
-    protected function hashPasswordCheck($user, $password): bool
-    {
-        return Hash::check($password, $user->password);
     }
 
     protected function userFindByEmail($email): ?Model
