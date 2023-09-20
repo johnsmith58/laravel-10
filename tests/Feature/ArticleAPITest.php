@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Tests\Feature;
 
 use Tests\TestCase;
+use App\Models\User;
 use App\Models\Article;
+use Laravel\Sanctum\Sanctum;
 use Illuminate\Http\Response;
 use App\Http\Exceptions\NotFoundException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -13,6 +15,16 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class ArticleAPITest extends TestCase
 {
     use RefreshDatabase;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        Sanctum::actingAs(
+            User::factory()->create(),
+            ['MyApp']
+        );
+    }
 
     public function testGetAllReturnResponseSuccessfulStatus(): void
     {
@@ -192,7 +204,7 @@ class ArticleAPITest extends TestCase
     public function testUpdateCanHandleNotFound(): void
     {
         $response = $this->putJson("api/articles/2", $this->articleJson());
-        
+
         $response->assertStatus(Response::HTTP_NOT_FOUND);
 
         $response->assertJsonStructure(['error' => [
@@ -210,7 +222,7 @@ class ArticleAPITest extends TestCase
         $article = $this->createArticle();
 
         $response = $this->deleteJson("api/articles/{$article->id}");
-        
+
         $response->assertStatus(Response::HTTP_OK);
 
         $response->assertExactJson(["message" => "Article delete successfully!"]);

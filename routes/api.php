@@ -20,10 +20,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('articles', ArticleController::class);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('articles', ArticleController::class);
+});
 
 
-Route::controller(UserController::class)->group(function() {
+Route::controller(UserController::class)->group(function () {
     Route::post('users/register', 'register');
     Route::post('users/login', 'login');
 });
